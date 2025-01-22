@@ -3,8 +3,22 @@ from sqlalchemy.orm import Session
 import models
 from database import engine, Base, get_db
 from schemas import *
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],  # Allow your Angular app's origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
 
 from seed import seed_database  # Import the seeder function
 # Run the seeder
